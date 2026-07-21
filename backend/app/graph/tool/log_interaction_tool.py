@@ -28,7 +28,6 @@ def log_interaction_tool(
 
         interaction = InteractionCreate(
 
-
             hcp_id=state["resolved_hcp_id"],
 
             interaction_type=extracted["interaction_type"],
@@ -67,6 +66,8 @@ def log_interaction_tool(
             "message": "Interaction logged successfully.",
         }
         state["interaction_id"] = saved_interaction.id
+
+        state["extracted_data"] = interaction.model_dump()
 
         print(" ## tool result:", state["tool_result"])
 

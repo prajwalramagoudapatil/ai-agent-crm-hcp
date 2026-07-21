@@ -48,7 +48,7 @@ def resolve_hcp(
             "mentioned_hcp_name": str | None
         }
     """
-    print(" Resolving hcp")
+    print(f" Resolving hcp; selected hcp id: {selected_hcp_id}  extracted name: {extracted_name}")
     # -----------------------------
     # No HCP selected in UI
     # -----------------------------

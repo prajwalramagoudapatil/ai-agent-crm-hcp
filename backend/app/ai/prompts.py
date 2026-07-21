@@ -33,31 +33,29 @@ Keep the summary under 150 words.
 EXTRACT_INTERACTION_PROMPT = """
 You are an AI assistant for a pharmaceutical CRM system.
 
-Extract structured information from the HCP interaction.
-
 Return ONLY valid JSON.
-Do not include markdown, explanations, or additional text.
+
+{
+  "doctor_name": string,
+  "interaction_type": string,
+  "interaction_date": string,      // actual date in YYYY-MM-DD format, or null if not mentioned
+  "interaction_time": string,      // actual time in HH:MM:SS (24hr) format, or null if not mentioned
+  "attendees": array of strings,   // use [] (empty JSON array) if none, NOT the string "[]"
+  "topics_discussed": array of strings,
+  "materials_shared": array of strings,
+  "samples_distributed": array of strings,  // [] if none
+  "sentiment": string,
+  "outcomes": string,
+  "follow_up_actions": array of strings
+}
 
 Rules:
 - Use "" for unknown string values.
-- Use [] for unknown list values.
-- Use the date format YYYY-MM-DD.
-- Use the time format HH:MM:SS (24-hour).
+- Use [] for unknown list values and NOT "[]".
 - Do not infer or hallucinate information that is not mentioned.
-
-{
-    "doctor_name": "",
-    "interaction_type": "",
-    "interaction_date": "YYYY-MM-DD",
-    "interaction_time": "HH:MM:SS",
-    "attendees": "",
-    "topics_discussed": [],
-    "materials_shared": [],
-    "samples_distributed": [],
-    "sentiment": "",
-    "outcomes": "",
-    "follow_up_actions": []
-}
+- Never output the literal placeholder text "YYYY-MM-DD" or "HH:MM:SS" — if the date/time is not stated in the conversation, use null.
+- All array fields must be real JSON arrays (e.g. []), never a string like "[]".
+- Do not wrap the JSON in markdown code fences.
 """
 
 
@@ -89,11 +87,30 @@ Then briefly explain why.
 
 
 EDIT_INTERACTION_PROMPT = """
-You are given an existing HCP interaction and a user's modification request.
+Extract ONLY the fields the user explicitly wants to modify.
 
-Update the interaction while preserving all unchanged information.
+Do not infer missing values.
+Do not include fields that are unchanged.
+Do not return empty strings or null values or [], skip that key value pair.
+Return only the fields that require updating.
 
-Return the updated interaction in a clear and structured format.
+Return ONLY valid JSON.
+Do not include markdown, explanations, or additional text.
+
+{
+    "doctor_name": "",
+    "interaction_type": "",
+    "interaction_date": "YYYY-MM-DD",
+    "interaction_time": "HH:MM:SS",
+    "attendees": "",
+    "topics_discussed": [],
+    "materials_shared": [],
+    "samples_distributed": [],
+    "sentiment": "",
+    "outcomes": "",
+    "follow_up_actions": []
+}
+
 """
 
 # ========================

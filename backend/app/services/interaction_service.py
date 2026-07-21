@@ -53,6 +53,21 @@ def update_interaction(
     Update an existing interaction.
     """
 
+    ALLOWED_UPDATE_FIELDS = {
+        "interaction_type",
+        "interaction_date",
+        "interaction_time",
+        "attendees",
+        "topics_discussed",
+        "notes",
+        "summary",
+        "materials_shared",
+        "samples_distributed",
+        "sentiment",
+        "outcomes",
+        "follow_up_actions",
+    }
+
     interaction = interaction_repository.get_interaction_by_id(db ,interaction_id)
 
     if interaction is None:
@@ -62,7 +77,8 @@ def update_interaction(
         )
 
     for key, val in interaction_data.items():
-        setattr(interaction, key, val)
+        if key in ALLOWED_UPDATE_FIELDS:
+            setattr(interaction, key, val)
 
     return interaction_repository.update_interaction(
         db=db,

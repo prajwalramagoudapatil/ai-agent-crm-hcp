@@ -125,7 +125,7 @@ export default function InteractionDetails() {
             <input
               type="time"
               className="w-full rounded-lg border py-3 pl-10 pr-3"
-              value={form.interactionTime}
+              value={form.interactionTime ? form.interactionTime : "" }
               onChange={(e) => dispatch(
     updateField({
         field: "time",

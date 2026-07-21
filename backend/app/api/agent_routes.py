@@ -19,10 +19,12 @@ def chat(request: ChatRequest, db: Session = Depends(get_db)):
     """
     print("Received request on /chat")
     try:
+        print(request)
         result = graph.invoke(
             {
                 "user_input": request.message,
                 "selected_hcp_id": request.hcp_id,
+                "interaction_id": request.interaction_id
             },
             config={"configurable": {"db": db}}
         )

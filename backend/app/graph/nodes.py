@@ -1,13 +1,13 @@
 from app.graph.state import GraphState
 from langchain_core.runnables import RunnableConfig
-from sqlalchemy.orm import Session
 
 from app.graph.tool.extract_tool import extract_tool
 from app.graph.tool.summarize_tool import summarize_tool
 from app.graph.tool.log_interaction_tool import log_interaction_tool
+from app.graph.tool.update_interaction_tool import update_interaction_tool
 from app.ai.llm_service import detect_intent
 from app.graph.tool.hcp_resolver_tool import resolve_hcp
-from app.db.database import SessionLocal
+from app.graph.tool.edit_extract_tool import edit_extract_tool
 
 def extract_node(state: GraphState) -> GraphState:
     extracted = extract_tool(state)
@@ -42,7 +42,6 @@ def response_node(state: GraphState) -> GraphState:
         tool_result_message = state.get("tool_result", {}).get("message", "Agent Failed")
 
         if state["hcp_conflict"]:
-            result = state["tool_result"]
 
             state["response"] = (
                 f"Interaction logged successfully for "
@@ -79,17 +78,17 @@ def intent_node(state: GraphState) -> GraphState:
     }
     return state
 
-def resolve_hcp_node(state: GraphState):
+def resolve_hcp_node(state: GraphState, config: RunnableConfig):
     """
     Validates whether the selected HCP matches
     the HCP mentioned in the conversation.
     """
-    db = SessionLocal()
+    db = config.get("configurable", {}).get("db")
     print('')
     try:
         result = resolve_hcp(
             db=db,
-            selected_hcp_id=state.get("selected_hcp_id"),
+            selected_hcp_id=state["selected_hcp_id"],
             extracted_name=state["extracted_data"].get("doctor_name"),
         )
         print(" resolve_hcp result: ", result)
@@ -109,3 +108,26 @@ def resolve_hcp_node(state: GraphState):
         print("Failed to resolve_hcp data. e:", e)
     finally:
         db.close()
+
+def edit_interaction_node(state: GraphState, config: RunnableConfig) -> GraphState:
+    """
+    Update an existing interaction.
+    """
+    db = config.get("configurable", {}).get("db")
+    result = update_interaction_tool(
+        db=db,
+        interaction_id=state["interaction_id"],
+        state=state,
+    )
+
+    state["tool_result"] = result
+
+    return state
+
+def edit_extract_node(state: GraphState, config: RunnableConfig):
+    db = config.get("configurable", {}).get("db")
+    extracted = edit_extract_tool(state, db)
+
+    state = extracted
+
+    return state

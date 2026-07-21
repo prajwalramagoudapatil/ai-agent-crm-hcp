@@ -37,7 +37,7 @@ export default function SentimentSection() {
           >
             <input
               type="radio"
-              checked={form.sentiment === label}
+              checked={form.sentiment.toLowerCase() === label.toLowerCase()}
               onChange={() => dispatch(updateField({
                 field: "sentiment",
                 value: label

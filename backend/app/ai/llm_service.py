@@ -5,9 +5,9 @@ import json, re
 from app.ai.prompts import (
     SUMMARIZE_INTERACTION_PROMPT,
     EXTRACT_INTERACTION_PROMPT,
-    INTENT_DETECTION_PROMPT
+    INTENT_DETECTION_PROMPT,
+    EDIT_INTERACTION_PROMPT
 )
-
 
 def generate_response(
     user_prompt: str,
@@ -93,6 +93,24 @@ def detect_intent(user_input: str) -> str:
     )
 
     return intent.strip().upper()
+
+def extract_edit_details(conversation: str) -> dict:
+
+    response = generate_response(
+        conversation,
+        system_prompt=EDIT_INTERACTION_PROMPT,
+        temperature=0
+    )
+    cleaned = response.strip()
+    if cleaned.startswith("```"):
+        cleaned = re.sub(r"^```(?:json)?\n|\n```$", "", cleaned).strip()
+
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError as e:
+        print(f"Failed to parse CRM Edit extraction response: {e}\nRaw: {response!r}")
+        raise
+
 
 if __name__ == "__main__":
     res = generate_response("Ramayan")

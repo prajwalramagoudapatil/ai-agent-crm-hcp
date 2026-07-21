@@ -1,0 +1,173 @@
+Project Structure:
+
+```
+crm-hcp/
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── redux/
+│   │   ├── services/      # API calls
+│   │   └── ...
+│
+├── backend/
+│   ├── app/
+│   │   ├── api/
+│   │   ├── models/
+│   │   ├── repositories/
+│   │   ├── services/
+│   │   ├── langgraph/
+│   │   ├── schemas/
+│   │   ├── database/
+│   │   └── main.py
+│   └── requirements.txt
+│
+└── README.md
+```
+
+
+The roadmap to follow
+
+```
+Step 1
+Repository structure
+
+↓
+
+Step 2
+FastAPI project setup
+
+↓
+
+Step 3
+Database models
+
+↓
+
+Step 4
+CRUD APIs
+
+↓
+
+Step 5
+Groq integration
+
+↓
+
+Step 6
+LangGraph agent
+
+↓
+
+Step 7
+Implement 5 tools
+
+↓
+
+Step 8
+Test with Swagger
+
+↓
+
+Step 9
+React + Redux UI
+
+↓
+
+Step 10
+Connect frontend to backend
+
+↓
+
+Step 11
+README + Demo Video
+
+```
+---
+
+Backend Folder Structure
+
+```
+backend/
+
+│
+
+├── app/
+
+│   ├── api/
+│   │      routes.py
+│   │
+│   ├── core/
+│   │      config.py
+│   │
+│   ├── db/
+│   │      database.py
+│   │
+│   ├── models/
+│   │      interaction.py
+│   │      hcp.py
+│   │
+│   ├── schemas/
+│   │      interaction.py
+│   │
+│   ├── repositories/
+│   │      interaction_repository.py
+│   │
+│   ├── services/
+│   │      interaction_service.py
+│   │
+│   ├── ai/
+│   │      graph.py
+│   │      state.py
+│   │
+│   ├── tools/
+│   │      log_tool.py
+│   │      edit_tool.py
+│   │      search_tool.py
+│   │      summary_tool.py
+│   │      followup_tool.py
+│   │
+│   ├── main.py
+│
+├── .env
+├── requirements.txt
+└── README.md
+```
+
+
+### Our Development Plan
+
+We'll build the backend in small, understandable steps.
+
+Step 1
+Create project structure
+Create virtual environment
+Install dependencies
+Step 2
+Configure FastAPI
+Run the server
+Step 3
+Configure PostgreSQL
+SQLAlchemy
+Database session
+Step 4
+Create models
+HCP
+Interaction
+Step 5
+Create repositories
+Step 6
+Create services
+Step 7
+Build CRUD APIs
+Step 8
+Integrate Groq
+Step 9
+Build LangGraph
+Step 10
+Build all 5 tools
+Step 11
+Connect React frontend
+Step 12
+Polish and prepare the demo video
+

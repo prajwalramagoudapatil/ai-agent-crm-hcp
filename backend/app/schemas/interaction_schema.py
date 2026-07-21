@@ -1,6 +1,5 @@
 from datetime import date, time
 from typing import Optional, List
-
 from pydantic import BaseModel, Field
 
 
@@ -9,12 +8,12 @@ class InteractionCreate(BaseModel):
 
     interaction_type: str
 
-    interaction_date: date
-    interaction_time: time
+    interaction_date: date = Field(default_factory=date.today)
+    interaction_time: Optional[time]
 
-    notes: str
+    notes: Optional[str]
 
-    attendees: Optional[str] = None
+    attendees: List[str] = Field(default_factory=list())
 
     topics_discussed: List[str] = Field(default_factory=[""])
 
