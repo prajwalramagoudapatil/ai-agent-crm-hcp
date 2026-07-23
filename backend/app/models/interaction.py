@@ -31,8 +31,8 @@ class Interaction(Base):
     interaction_type = Column(String(50), nullable=False)
 
     # Actual meeting date & time
-    interaction_date = Column(Date, nullable=False)
-    interaction_time = Column(Time, nullable=False)
+    interaction_date = Column(Date, nullable=True)
+    interaction_time = Column(Time, nullable=True)
 
     # Optional attendees
     attendees = Column(Text, nullable=True)

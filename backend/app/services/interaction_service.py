@@ -13,7 +13,7 @@ def create_interaction(
     """
     Create a new interaction.
     """
-    print(" Calling repository to create record \n ################## \n \n ******** ")
+    print(" Calling repository to create record ")
     return interaction_repository.create_interaction(
         db=db,
         interaction=interaction
@@ -59,7 +59,7 @@ def update_interaction(
         "interaction_time",
         "attendees",
         "topics_discussed",
-        "notes",
+        # "notes",
         "summary",
         "materials_shared",
         "samples_distributed",
@@ -88,13 +88,16 @@ def update_interaction(
 
 def delete_interaction(
     db: Session,
-    interaction_id: int
-) -> bool:
+    interaction: Interaction
+) :
     """
     Delete an interaction.
     """
 
-    return interaction_repository.delete_interaction(
-        db=db,
-        interaction_id=interaction_id
-    )
+    try:
+        interaction_repository.delete_interaction(
+            db=db,
+            interaction=interaction
+        )
+    except Exception as e:
+        print("Error in Deleting Interaction; interaction_id:", interaction.id, "Error:", e)

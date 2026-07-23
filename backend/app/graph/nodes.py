@@ -38,7 +38,7 @@ def log_interaction_node(state: GraphState, config: RunnableConfig) -> GraphStat
 def response_node(state: GraphState) -> GraphState:
     print("In response_node")
     try:
-        interaction_id = state.get("tool_result", {}).get("interaction_id", "NO_DATA")
+        interaction_id = state["interaction_id"]
         tool_result_message = state.get("tool_result", {}).get("message", "Agent Failed")
 
         if state["hcp_conflict"]:
@@ -113,6 +113,7 @@ def edit_interaction_node(state: GraphState, config: RunnableConfig) -> GraphSta
     """
     Update an existing interaction.
     """
+    print("  ******  In edit interaction node")
     db = config.get("configurable", {}).get("db")
     result = update_interaction_tool(
         db=db,
@@ -127,7 +128,9 @@ def edit_interaction_node(state: GraphState, config: RunnableConfig) -> GraphSta
 def edit_extract_node(state: GraphState, config: RunnableConfig):
     db = config.get("configurable", {}).get("db")
     extracted = edit_extract_tool(state, db)
+    print(f"  >>>>>>> tool res: {extracted}  extracted data:")
+    print(state["extracted_data"])
 
-    state = extracted
+    state["tool_result"] = extracted
 
     return state

@@ -33,7 +33,15 @@ export const sendChatMessage = createAsyncThunk(
           followUpActions: extracted.follow_up_actions,
         };
 
-        dispatch(setInteractionData(interactionData));
+        const cleanedData = Object.fromEntries(
+          Object.entries(interactionData).filter(
+            ([, value]) => value !== undefined
+          )
+        );
+
+        console.log("Interaction data", cleanedData);
+
+        dispatch(setInteractionData(cleanedData));
       }
       return {
         userMessage: message,

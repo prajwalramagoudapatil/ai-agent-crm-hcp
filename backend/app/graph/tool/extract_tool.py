@@ -150,10 +150,10 @@ def extract_tool(state: GraphState) -> GraphState:
         state["extracted_data"] = extracted_data
 
         # Convenience fields for later nodes
-        state["sentiment"] = extracted_data.get("sentiment", "")
-        state["follow_up_actions"] = extracted_data.get(
-            "follow_up_actions", []
-        )
+        # state["sentiment"] = extracted_data.get("sentiment", "")
+        # state["follow_up_actions"] = extracted_data.get(
+        #     "follow_up_actions", []
+        # )
         print("Returning from extract_tool")
     except Exception as e:
         state["extracted_data"] = {}

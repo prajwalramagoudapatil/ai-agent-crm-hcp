@@ -2,7 +2,6 @@ from sqlalchemy.orm import Session
 
 from app.graph.state import GraphState
 from app.services import interaction_service
-from app.ai.llm_service import extract_edit_details
 
 
 
@@ -19,6 +18,7 @@ def update_interaction_tool(
     if interaction_id is None:
         raise ValueError("interaction_id is required for editing.")
 
+    update_data = state["extracted_data"]
 
 
     updated_interaction = interaction_service.update_interaction(
@@ -26,6 +26,8 @@ def update_interaction_tool(
         interaction_id=interaction_id,
         interaction_data=update_data,
     )
+
+    state["interaction_id"] = updated_interaction.id
 
     return {
         "success": True,

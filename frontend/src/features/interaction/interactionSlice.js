@@ -46,7 +46,10 @@ const interactionSlice = createSlice({
     },
 
     setInteractionData: (state, action) => {
-      Object.assign(state, action.payload);
+      console.log("Updated Data to set to state:", action.payload)
+      Object.assign(state, { ...state, ...action.payload});
+      // const form = useSelector(selectInteraction);
+      console.log(" #### state after updated:", state)
     },
 
     // addChatMessage: (state, action) => {

@@ -60,6 +60,10 @@ def log_interaction_tool(
             interaction=interaction,
         )
 
+        print(" Ram Sita Hanuman Lakshman")
+
+        print(f" ### \n #### saved_interaction id: {saved_interaction.id}")
+
         state["tool_result"] = {
             "success": True,
             "interaction_id": saved_interaction.id,
@@ -69,7 +73,7 @@ def log_interaction_tool(
 
         state["extracted_data"] = interaction.model_dump()
 
-        print(" ## tool result:", state["tool_result"])
+        print(" ## \n ### \n Hare Krishna \n  ## tool result:", state["tool_result"])
 
     except Exception as e:
         state["tool_result"] = {
@@ -77,7 +81,8 @@ def log_interaction_tool(
             "message": str(e),
         }
 
-        print("Narayan: error:", e)
+        print(" \n Ram Raama Ram Ram \n  Narayan: error:", e)
 
     print("  ### returning state from log_interaction_tool")
+    print(f"saved interaction: {saved_interaction}")
     return state

@@ -33,7 +33,7 @@ def chat(request: ChatRequest, db: Session = Depends(get_db)):
             response=result.get("response", "NO_RESPONSE_GENERATED"),
             extracted_data=result.get("extracted_data", {}),
             summary=result.get("summary"),
-            interaction_id=result.get("interaction_id"),
+            interaction_id=result.get("interaction_id", "NO_ID_FOUND"),
         )
 
     except Exception as e:

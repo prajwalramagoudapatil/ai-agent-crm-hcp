@@ -1,6 +1,6 @@
 # backend/app/graph/state.py
 
-from typing import TypedDict, Optional, List, Dict, Any
+from typing import TypedDict, Optional, Dict, Any
 
 
 class GraphState(TypedDict, total=False):
@@ -39,11 +39,11 @@ class GraphState(TypedDict, total=False):
     # Structured data extracted from the conversation
     extracted_data: Dict[str, Any]
 
-    # Detected sentiment
-    sentiment: str
-
-    # AI-generated follow-up recommendations
-    follow_up_actions: List[str]
+    # # Detected sentiment
+    # sentiment: str
+    #
+    # # AI-generated follow-up recommendations
+    # follow_up_actions: List[str]
 
     # Result returned by a tool (database response, etc.)
     tool_result: Dict[str, Any]
