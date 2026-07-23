@@ -20,7 +20,32 @@ def create_interaction(
     )
 
 
-def get_all_interactions(
+def get_all_interactions(db: Session):
+    interactions = interaction_repository.get_all_interactions(db)
+
+    return [
+        {
+            "id": interaction.id,
+            "hcp_id": interaction.hcp_id,
+            "hcp_name": interaction.hcp.doctor_name,
+
+            "interaction_type": interaction.interaction_type,
+            "interaction_date": interaction.interaction_date,
+            "interaction_time": interaction.interaction_time,
+
+            "attendees": interaction.attendees,
+            "topics_discussed": interaction.topics_discussed,
+            "materials_shared": interaction.materials_shared,
+            "samples_distributed": interaction.samples_distributed,
+
+            "sentiment": interaction.sentiment,
+            "outcomes": interaction.outcomes,
+            "follow_up_actions": interaction.follow_up_actions,
+        }
+        for interaction in interactions
+    ]
+
+def get_all_interactions2(
     db: Session
 ) -> list[Interaction]:
     """

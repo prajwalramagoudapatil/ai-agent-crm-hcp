@@ -1,4 +1,7 @@
 import LogInteractionPage from './pages/LogInteractionPage'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import InteractionsPage from "./pages/InteractionsPage";
+
 import './App.css'
 import { useEffect } from "react";
 import { getAllHcps } from "./api/hcpApi";
@@ -21,7 +24,17 @@ function App() {
 
   return (
     <>
-        <LogInteractionPage />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navigate to="/log/chat" replace />} />
+
+          {/* <Route path="/log/form" element={<FormPage />} /> */}
+          <Route path="/log/chat" element={<LogInteractionPage />} />
+          <Route path="/interactions" element={<InteractionsPage />} />
+
+        </Routes>
+      </BrowserRouter>
+        
     </>
   )
 }

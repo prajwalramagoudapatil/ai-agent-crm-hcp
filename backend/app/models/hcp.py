@@ -17,8 +17,8 @@ class HCP(Base):
 
     city = Column(String)
     
-    # interactions = relationship(
-    #     "Interaction",
-    #     back_populates="hcp",
-    #     cascade="all, delete-orphan"
-    # )
+    interactions = relationship(
+        "Interaction",
+        back_populates="hcp",
+        cascade="all, delete-orphan"
+    )

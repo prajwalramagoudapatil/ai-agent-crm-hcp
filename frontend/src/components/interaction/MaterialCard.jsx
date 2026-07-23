@@ -18,7 +18,7 @@ export default function MaterialCard({
               No materials added.
             </p>
           ) : (
-            <ul className="mt-2 space-y-1 text-sm">
+            <ul className="mt-2 space-y-1 text-lg">
               {/* {items.map((item) => (
                   <li key={item}>• {item}</li>
               ))} */}

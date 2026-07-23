@@ -22,8 +22,8 @@ class Interaction(Base):
     id = Column(Integer, primary_key=True, index=True)
 
     # Relationship with HCP
-    # hcp_id = Column(Integer, ForeignKey("hcps.id"), nullable=False)
-    hcp_id = Column(Integer)
+    hcp_id = Column(Integer, ForeignKey("hcps.id"), nullable=False)
+    # hcp_id = Column(Integer)
 
     # hcp_name = Column(Text)
 
@@ -59,7 +59,7 @@ class Interaction(Base):
 
     created_at = Column(DateTime, default=datetime.now)
 
-    # hcp = relationship(
-    #     "HCP",
-    #     back_populates="interactions",
-    # )
+    hcp = relationship(
+        "HCP",
+        back_populates="interactions",
+    )

@@ -1,5 +1,5 @@
 from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from typing import List
 from pprint import pprint
 from app.models.interaction import Interaction
@@ -27,8 +27,14 @@ def create_interaction(
         db.rollback()
         raise
 
+def get_all_interactions(db: Session):
+    return (
+        db.query(Interaction)
+        .options(joinedload(Interaction.hcp))
+        .all()
+    )
 
-def get_all_interactions(
+def get_all_interactions2(
     db: Session
 ) -> List[Interaction]:
     """
